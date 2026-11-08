@@ -1,34 +1,23 @@
-/* eslint-disable no-unused-vars */
+function timeToMinutes(timeString) {
+  const parts = timeString.split(':');
 
-function checkStringLength(str, maxLength) {
-  return str.length <= maxLength;
+  const hours = Number(parts[0]);
+  const minutes = Number(parts[1]);
+
+  return (hours * 60) + minutes;
 }
 
-function isPalindrome(str) {
-  const normalized = str.replaceAll(' ', '').toLowerCase();
+// eslint-disable-next-line no-unused-vars
+function checkMeeting(startWork, endWork, startMeeting, duration) {
+  const workStartMin = timeToMinutes(startWork);
+  const workEndMin = timeToMinutes(endWork);
+  const meetingStartMin = timeToMinutes(startMeeting);
 
-  let reversed = '';
-  for (let i = normalized.length - 1; i >= 0; i--) {
-    reversed += normalized[i];
+  const meetingEndMin = meetingStartMin + duration;
+
+  if (meetingStartMin >= workStartMin && meetingEndMin <= workEndMin) {
+    return true;
   }
 
-  return normalized === reversed;
-}
-
-function extractNumbers(str) {
-  const string = str.toString();
-  let digits = '';
-
-  for (let i = 0; i < string.length; i++) {
-    const char = string[i];
-    if (char >= '0' && char <= '9') {
-      digits += char;
-    }
-  }
-
-  if (digits === '') {
-    return NaN;
-  }
-
-  return parseInt(digits, 10);
+  return false;
 }
